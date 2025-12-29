@@ -9,6 +9,61 @@ using namespace std;
 
 // --- 1. GLOBAL DATA & LABELS / ዓለም አቀፍ መረጃዎች ---
 
+/*
+
+### `const char*[]` (Your Current Choice)
+
+**Advantages:**
+- ✅ **Memory Efficient**: No overhead (each string is just a pointer + characters)
+- ✅ **Faster Compilation**: Simpler type for the compiler
+- ✅ **Binary Size**: Smaller executable
+- ✅ **Compatibility**: Works with C and C APIs
+- ✅ **Read-Only Safety**: `const` prevents accidental modification
+
+**Disadvantages:**
+- ❌ **Fixed Size**: Cannot add/remove elements at runtime
+- ❌ **No Bounds Checking**: Potential for out-of-bounds access
+- ❌ **Limited Functionality**: No built-in string operations
+- ❌ **Lifetime Management**: Must ensure pointers remain valid
+- ❌ **No Length Tracking**: Must use `strlen()` to get string lengths
+
+### `std::string[]` (Alternative)
+
+**Advantages:**
+- ✅ **Safer**: Bounds checking available
+- ✅ **More Features**: Built-in string manipulation
+- ✅ **Dynamic Sizing**: With `vector<string>`
+- ✅ **Memory Management**: Automatic cleanup
+- ✅ **Easier Debugging**: Better error messages
+
+**Disadvantages:**
+- ❌ **Memory Overhead**: ~32 bytes per string object
+- ❌ **Slightly Slower**: Due to object construction/destruction
+- ❌ **Binary Bloat**: Includes string class code
+- ❌ **Heap Allocations**: May cause memory fragmentation
+
+### When to Choose Which:
+
+**Use `const char*[]` when:**
+- Dealing with static, unchanging text
+- Memory is extremely constrained
+- You need C compatibility
+- Performance is critical (embedded systems)
+
+**Use `std::string[]` when:**
+- You need to modify strings
+- String operations are needed
+- Safety is a priority
+- Development speed matters more than micro-optimizations
+
+### In Your Specific Case:
+The trade-off favors `const char*[]` because:
+1. Month names are constant
+2. No modification needed
+3. Memory efficiency is beneficial
+4. The code is simpler
+
+*/
 const char* MONTHS_GEEZ[] = { "መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ" };
 const char* WENGELAWI_LIST[] = {"ዮሐንስ", "ማቴዎስ", "ማርቆስ", "ሉቃስ"};
 const char* SIDAMA_AYYAANA[] = {"Dikko", "Bela", "Qawadoo", "Qululo"};
@@ -71,9 +126,11 @@ int main() {
     return 0;
 }
 
-// --- 5. LOGIC IMPLEMENTATION / ዝርዝር ተግባራት ---
+// --- 5. LOGIC IMPLEMENTATION ---
 
 /**
+JDN: Julian Day Number
+as  the epoch (1970 is used as the unix epoch)
  * dateToJDN: The Universal Bridge logic.
  * የጁሊያን ቀን ቁጥር (JDN) በሁለቱ የቀን መቁጠሪያዎች መካከል እንደ ድልድይ ሆኖ ያገለግላል።
  * It converts specific dates into a continuous count of days to ensure 
