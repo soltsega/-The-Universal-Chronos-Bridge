@@ -1,3 +1,23 @@
+# Build directory
+build/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.out
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Executable
+calendar_converter
+
 # Prerequisites
 *.d
 
@@ -53,11 +73,7 @@ classwork
 classwork.cpp
 create-rename.cpp
 example.txt
-.gitignore
-.gitignore
-.gitignore
 writing.cpp
-.gitignore
 text_file_processing.cpp
 reading.cpp
 report.txt
@@ -87,3 +103,5 @@ DAILY NUTRITION & CALORIE TRACKER/utils.h
 DAILY NUTRITION & CALORIE TRACKER/utils.cpp
 DAILY NUTRITION & CALORIE TRACKER/profile.cpp
 practice_dir/palindrome.py
+finding_largest.cpp
+calendar_v.1.2.cpp
