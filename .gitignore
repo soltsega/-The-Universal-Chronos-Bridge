@@ -1,73 +1,18 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
+# Build directory
+build/
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
-*.lib
-
-# Executables
+*.so
+*.dll
 *.exe
 *.out
-*.app
 
-# debug information files
-*.dwo
-bealat.cpp
-binary_file_processing.cpp
-binary_file_processiong.cpp
-both.cpp
-.gitignore
-calendar
-calendar_demo
-calendar_demo.cpp
-calendar.cpp
-calendar2.groovy
-classwork
-classwork.cpp
-create-rename.cpp
-example.txt
-.gitignore
-.gitignore
-.gitignore
-writing.cpp
-.gitignore
-text_file_processing.cpp
-reading.cpp
-report.txt
-read_the_first_line.cpp
-.gitignore
-random_access_files.cpp
-practice.cpp
-file_operations.cpp
-notes.txt
-practice
-holidays_report.txt
-file.txt
-calendar2
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Executable
