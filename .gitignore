@@ -15,4 +15,6 @@ build/
 *~
 .DS_Store
 
+calendar2.cpp
 # Executable
+calendar.cpp
