@@ -16,21 +16,24 @@ void clearInputBuffer() {
 //
 void searchAndConvertRecord() {
     if (getRecordCount() == 0) {
-        std::cout << "No records available to search." << std::endl;
+        std::cout << "No records available." << std::endl;
         return;
     }
 
     showAllRecords();
-    int searchId = getIntInput("\nEnter record ID to convert: ", 1, getRecordCount());
+    std::cout << "\nEnter Record ID: ";
+    int searchId;
+    if (!(std::cin >> searchId)) {
+        clearInputBuffer();
+        return;
+    }
     
-    CalendarRecord* record = findRecord(searchId);
+    CalendarRecord* record = findRecord(searchId); // Find by ID, not by index
     if (!record) {
-        std::cout << "Record not found!" << std::endl;
+        std::cout << "⚠️ ID " << searchId << " not found!" << std::endl;
         return;
     }
 
-    // Convert the found record
-    std::cout << "\n=== Converting Record ID: " << searchId << " ===" << std::endl;
     convertAndDisplayDate(record->day, record->month, record->year, record->calendarType);
 }
 

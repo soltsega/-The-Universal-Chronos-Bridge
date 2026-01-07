@@ -1,12 +1,12 @@
 # 🇪🇹 The Universal Chronos-Bridge
 
-### **A Unified Chronological Synchronization Engine (Gregorian • Ethiopian • Sidama)**
+### **A Unified Chronological Synchronization Engine (Gregorian • Ethiopian • Islamic • Sidama)**
 
-The **Universal Chronos-Bridge** is a high-performance C++ computational engine designed to bridge three distinct chronological civilizations. By synthesizing ancient astronomical wisdom with modern Number Theory, this project provides an error-free synchronization layer between Solar, Lunar, and indigenous Cyclical time systems.
+The **Universal Chronos-Bridge** is a high-performance C++ computational engine designed to bridge four distinct chronological civilizations. By synthesizing ancient astronomical wisdom with modern Number Theory, this project provides an error-free synchronization layer between Solar, Lunar, and indigenous Cyclical time systems.
 
 ---
 
-## 🏛️ Project Philosophy & "Local Knowledge"
+## Project Philosophy & "Local Knowledge"
 
 To build this engine, it was not enough to simply subtract seven years from the Gregorian calendar. The project required a deep dive into the **"Sea of Thought" (ባሕረ ሐሳብ)** to solve specific chronological anomalies that standard software ignores.
 
@@ -22,103 +22,102 @@ The Ethiopian cycle of years is named after the four Evangelists.
 
 * **The Engineering Solution:** By calculating `ameteAlem % 4`, the system automatically assigns the year to **John, Matthew, Mark, or Luke**. This is more than a label; it dictates the mathematical foundation for all holiday calculations within that specific 365/366-day block.
 
+### 3. The Tabular Hijri Bridge (New Feature)
+
+Integrating the Islamic calendar required a shift from Solar-fixed logic to a 30-year Lunar cycle.
+
+* **The Engineering Solution:** The engine now utilizes a **Tabular Islamic Calendar** algorithm based on a 10,631-day cycle. By calculating leap years within the 30-year Hijri cycle, the bridge maintains synchronization with the lunar-based system used for historical and civil purposes.
+
 ---
 
-To finalize this as a truly professional and educational resource, I have added a **"Lexicon of Time"** section. This defines the core Ge'ez and Amharic terminology used in the code, providing the etymological and functional context required for international users and developers to understand the project's logic.
-
-
-## 📖 Lexicon of Time: Key Terminology
-
-The following terms form the mathematical and cultural backbone of the system. Understanding these is essential to mastering the source code's logic.
+## Lexicon of Time: Key Terminology
 
 ### 1. **Bahere Hasab (ባሕረ ሐሳብ)**
 
 * **Literal Meaning:** "The Sea of Thought."
-* **Functional Definition:** The traditional Ethiopian computational system used to determine the dates of movable fasts and feasts. It treats time as a deep, interconnected ocean where solar and lunar cycles meet.
+* **Functional Definition:** The traditional Ethiopian computational system used to determine the dates of movable fasts and feasts.
 
 ### 2. **Amete Alem (ዓመተ ዓለም)**
 
 * **Literal Meaning:** "Year of the World."
-* **Functional Definition:** The total number of years since the creation of the world according to Ethiopian Orthodox tradition. In the code, this is calculated as . This serves as the baseline for all cyclical calculations.
+* **Functional Definition:** The total number of years since creation. Calculated as .
 
 ### 3. **Wenber (ወንበር)**
 
 * **Literal Meaning:** "The Chair" or "The Seat."
-* **Functional Definition:** The index of the year within the **Metonic Cycle** (a 19-year lunar cycle). It represents where the year "sits" in the cycle to determine lunar phases.
+* **Functional Definition:** The index of the year within the **Metonic Cycle** (19-year lunar cycle).
 * **Code Logic:** `wenber = (ameteAlem - 1) % 19;`
 
 ### 4. **Abekte (አበቅቴ)**
 
-* **Literal Meaning:** "To remain over" or "The remainder."
-* **Functional Definition:** The **Epact**. Because a lunar year is 11 days shorter than a solar year, those 11 days "remain over" each year. This accumulated difference is used to find the lunar date.
+* **Literal Meaning:** "To remain over."
+* **Functional Definition:** The accumulated solar-lunar variance used to find the lunar date.
 * **Code Logic:** `abekte = (wenber * 11) % 30;`
 
 ### 5. **Metqi (መጥቅዕ)**
 
 * **Literal Meaning:** "The Call" or "The Trumpet."
-* **Functional Definition:** The lunar date used as the anchor for the fasting season. When the *Metqi* is sounded, it signals the start of the countdown to **ጾመ ነነዌ** (Fast of Nineveh).
+* **Functional Definition:** The lunar anchor date for movable fasts.
 
 ### 6. **Pagume (ጳጉሜ)**
 
-* **Literal Meaning:** Derived from the Greek *Epagomene* ("days added").
-* **Functional Definition:** The 13th month of the Ethiopian calendar. It consists of 5 days (6 in a leap year).
-* **The Anecdote:** **"ጳጉሜን ዕዳዋን ሳትከፍል አትሄድም።"** (*Pagume never leaves without paying her debts.*) This refers to the accumulation of 1/4 day each year that results in the 6th day of Pagume every 4 years.
+* **Literal Meaning:** Derived from the Greek *Epagomene*.
+* **Functional Definition:** The 13th month of the Ethiopian calendar (5 or 6 days).
 
 ### 7. **Tewsak (ተውሳክ)**
 
 * **Literal Meaning:** "Addition" or "Supplement."
-* **Functional Definition:** Constant numbers assigned to each day of the week (e.g., Monday = 2, Tuesday = 1). These are added to the *Metqi* date to ensure holidays fall on the correct prescribed weekdays.
+* **Functional Definition:** Weekday-specific offsets used to ensure holidays fall on prescribed days.
 
 ### 8. **Ayyaana**
 
 * **Context:** Sidama Calendar.
-* **Literal Meaning:** "Spirit" or "Day-quality."
-* **Functional Definition:** The 4-day cyclical sub-week (*Dikko, Bela, Qawadoo, Qululo*). Each *Ayyaana* has specific cultural and agricultural significance.
+* **Functional Definition:** The 4-day cyclical sub-week (*Dikko, Bela, Qawadoo, Qululo*).
 
+---
 
-## 🔬 Technical Architecture & Mathematical Proofs
+## Technical Architecture & Mathematical Proofs
 
 ### 1. The Invariant JDN Bridge
 
-The engine's heart is the **Julian Day Number (JDN)** logic. Used by NASA and professional astronomers, the JDN is a continuous count of days since the dawn of recorded time. This serves as our "Universal Truth."
+The engine's heart is the **Julian Day Number (JDN)** logic.
 
 **The Ethiopian JDN Formula implemented in the source:**
 
 
-By converting all inputs (Gregorian or Ethiopian) into this absolute integer, the engine eliminates errors caused by the **7/8-year "Incarnation" gap**.
+### 2. Persistent Record Management (New Feature)
 
-### 2. The Bahere Hasab Computus
+To transform this from a simple calculator into a utility, I implemented a **Record Management Layer**.
 
-The system digitizes the **19-year Metonic Cycle**, known in Ge'ez as the **Abushaker** system. The code simulates the complex interaction of:
+* **Auto-Incrementing IDs:** Records are stored with unique, persistent IDs independent of their array index.
+* **CRUD Operations:** Users can Create, Read, Update, and Delete date records for future reference.
 
-* **Wenber (ወንበር):** The "Chair" or index within the 19-year lunar cycle.
-* **Abekte (አበቅቴ):** The 11-day annual solar-lunar variance.
-* **Metqi (መጥቅዕ):** The specific lunar date used to anchor the movable fasts (Fast of Nineveh, Great Lent, etc.).
+### 3. Automated Reporting Engine (New Feature)
 
-### 3. Sidama Ayyaana Precision
+The bridge now features an automated logging system that exports calculations to external text files.
 
-The project preserves the **Sidama 4-day week** (*Dikko, Bela, Qawadoo, Qululo*). In Sidama culture, these names determine the suitability of days for social and agricultural events.
-
-* **The Engineering Solution:** Because the JDN is a linear count, I utilized `JDN % 4` to maintain an unbroken loop that stays synchronized across centuries, regardless of changes to the Gregorian or Ethiopian months.
+* **`report.txt`**: Records every date conversion with a timestamp.
+* **`holidays_report.txt`**: Logs full Bahere Hasab holiday schedules for specific years.
 
 ---
 
-## 🚀 Key Engineering Features
+## Key Engineering Features
 
-* **Bi-Directional Portal:** Enter an Ethiopian date to find its Gregorian and Sidama equivalents, or enter a Gregorian date to find its Ethiopian counterpart.
-* **Robust Input Sanitization:** Standard C++ `cin` is prone to crashing on invalid data. This engine uses a custom `clearInputBuffer()` and `numeric_limits` to ensure the program remains stable even with incorrect user input.
-* **Memory-Mapped Data:** Optimized for speed by using `static const char*` arrays for Geez and Sidama labels, ensuring a near-instantaneous search response.
+* **Quad-Directional Portal:** Synchronize dates between Gregorian, Ethiopian, Islamic, and Sidama systems simultaneously.
+* **Robust Input Sanitization:** Uses custom `clearInputBuffer()` and `getIntInput()` to prevent crashes from non-numeric or out-of-range data.
+* **Memory Efficiency:** Uses `static` array storage for record management, minimizing heap fragmentation.
+* **Doxygen Ready:** The codebase is fully commented using standard `@brief`, `@param`, and `@note` tags for automated documentation generation.
 
 ---
 
 ## 📅 Comparative System Logic
 
-| Feature | Gregorian (GC) | Ethiopian (EC) | Sidama Ayyaana |
-| --- | --- | --- | --- |
-| **New Year** | January 1 | Meskerem 1 (Sept) | Fitche Chambalaalla |
-| **Month Structure** | 12 Months | 12 Months + Pagume | 13 Months |
-| **Leap Cycle** | Rule-based (div by 400) | Fixed 4-year cycle | Fixed 4-year cycle |
-| **Week Cycle** | 7-Day Week | 7-Day Week | 4-Day Ayyaana Cycle |
+| Feature | Gregorian (GC) | Ethiopian (EC) | Islamic (Hijri) | Sidama Ayyaana |
+| --- | --- | --- | --- | --- |
+| **New Year** | January 1 | Meskerem 1 | 1 Muharram | Fitche Chambalaalla |
+| **Cycle Type** | Solar | Solar | Lunar | Cyclical |
+| **Leap Cycle** | 400-Year Rule | Fixed 4-Year | 30-Year Cycle | Fixed 4-Year |
+| **Records** | Volatile | Volatile | Volatile | **Persistent Storage** |
 
 ---
 
@@ -126,27 +125,28 @@ The project preserves the **Sidama 4-day week** (*Dikko, Bela, Qawadoo, Qululo*)
 
 ### Compilation
 
-The source code is written in standard C++ and requires no external libraries.
+The source code is modular. To compile the full bridge:
 
 ```bash
-g++ -o chronos_bridge main.cpp
+g++ -o chronos_bridge main.cpp data.cpp conversion.cpp ui.cpp
 ./chronos_bridge
 
 ```
 
-### Logical Data Flow
+### File Structure
 
-1. **Input:** User provides Year/Month/Day in either GC or EC.
-2. **Standardization:** `dateToJDN()` converts input to an absolute day count.
-3. **Extraction:** `jdnToEth()` and the Gregorian inverse logic reconstruct the date into all target calendars.
-4. **Output:** Results are displayed in a formatted table using `iomanip`.
+* `data.h/cpp`: The "Storage Vault"—contains global arrays and record-keeping logic.
+* `conversion.h/cpp`: The "Brain"—contains the JDN algorithms and Bahere Hasab logic.
+* `ui.h/cpp`: The "Face"—handles all user interaction and input validation.
 
+---
 
-
-## 💎 Final Assessment
+## Final Assessment
 
 > **"ጊዜ ወርቅ ነው፤ ባሕረ ሐሳብ ግን የጊዜ መክፈቻ ቁልፍ ነው።"**
 > *(Time is gold, but Bahere Hasab is the key that unlocks it.)*
 
 This project stands as a pioneer to **Indigenous-Centric Software Development**. It is a bridge between the stars observed by ancestors and the processors of the future.
+
+---
 
