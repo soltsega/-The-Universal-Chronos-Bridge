@@ -1,4 +1,4 @@
-# 🇪🇹 The Universal Chronos-Bridge
+# The Universal Chronos-Bridge
 
 ### **A Unified Chronological Synchronization Engine (Gregorian • Ethiopian • Islamic • Sidama)**
 
@@ -110,7 +110,7 @@ The bridge now features an automated logging system that exports calculations to
 
 ---
 
-## 📅 Comparative System Logic
+## Comparative System Logic
 
 | Feature | Gregorian (GC) | Ethiopian (EC) | Islamic (Hijri) | Sidama Ayyaana |
 | --- | --- | --- | --- | --- |
