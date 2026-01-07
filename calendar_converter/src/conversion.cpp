@@ -1,11 +1,11 @@
-#include "conversion.h"
-#include "data.h"
-#include <cmath>
-#include <iostream>
-#include <iomanip>
-#include <ctime>
-#include <fstream>
-#include <sstream>
+#include "conversion.h" //header file for conversion of the calendars to each other
+#include "data.h"  //header file for 
+#include <cmath>  //directive for mathematical operations
+#include <iostream>  //for input and outpt streams
+#include <iomanip>  //for formatting output
+#include <ctime>  //for time operations
+#include <fstream>  //for file operations
+#include <sstream>  //for string operations
 
 // External list defined in data.cpp
 extern const char* WENGELAWI_LIST[4];
@@ -190,7 +190,7 @@ void convertAndDisplayDate(int d, int m, int y, CalendarType sourceType) {
 
     long jdn = dateToJDN(d, m, y, sourceType == GREGORIAN);
     
-    int gd, gm, gy, ed, em, ey, id, im, iy;
+    int gd, gm, gy, ed, em, ey, id, im, iy; //the variables are for gregorian, ethiopian, and islamic dates
     
     jdnToGreg(jdn, gd, gm, gy);
     jdnToEth(jdn, ed, em, ey);

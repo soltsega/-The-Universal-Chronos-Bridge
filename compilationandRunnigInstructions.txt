@@ -1,5 +1,5 @@
  Compilation and Running Instructions:
- Note: this is on bash terminal whichis most popular. Optimize the command if you prefer to use another terminal like powershell.
+ Note: this is on bash terminal which is most popular. Optimize the command if you prefer to use another terminal like powershell.
 
 1. Navigate to the project directory
    cd /home/solomon/Desktop/CP/calendar_converter
