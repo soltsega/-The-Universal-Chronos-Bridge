@@ -1,0 +1,39 @@
+ Compilation and Running Instructions:
+ Note: this is on bash terminal whichis most popular. Optimize the command if you prefer to use another terminal like powershell.
+
+1. Navigate to the project directory
+
+   cd /home/solomon/Desktop/CP/calendar_converter
+
+2. Create and enter the build directory
+   mkdir -p build
+   cd build
+
+3. Generate build files with CMake
+   
+   cmake ..
+   
+4. Compile the code
+   
+   make
+   
+5. Run the program
+
+   ./calendar_converter
+
+For a Fresh Start (Clean Build)
+If you want to ensure a clean build, use these commands:
+
+cd /home/solomon/Desktop/CP/calendar_converter or your path to the directory. I wrote this in my path
+rm -rf build/*
+mkdir -p build
+cd build
+cmake ..
+make
+./calendar_converter
+
+Additional Notes:
+The program will create two log files:
+ `report.txt` - Contains date conversion logs
+ `holidays_report.txt` - Contains Bahere Hasab holiday calculations
+
