@@ -7,8 +7,13 @@
 #include <fstream>  //for file operations
 #include <sstream>  //for string operations
 
+
+
 // External list defined in data.cpp
 extern const char* WENGELAWI_LIST[4];
+extern const char* MONTHS_GEEZ[13];
+extern const char* MONTHS_HIJRI[12];
+extern const char* SIDAMA_AYYAANA[4];
 
 // Convert date to Julian Day Number (JDN)
 // Gregorian: Fliegel-Van Flandern algorithm
