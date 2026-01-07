@@ -1,4 +1,8 @@
-#pragma once
+// This file is for the conversion functions
+// it contains the functions that convert dates between different calendar systems
+
+#pragma once  // prevent multiple inclusions
+// ensures that the header file is included only once
 #include "data.h"
 
 // JDN conversion functions
@@ -14,6 +18,10 @@ bool isValidDate(int d, int m, int y, CalendarType type);
 void convertAndDisplayDate(int d, int m, int y, CalendarType sourceType);
 
 // Bahere Hasab functions
+
+// get tewsak
 int getTewsak(int dayIndex);
+// calculate Bahere Hasab
 void calculateBahereHasab(int inputYear, BahereHasabResults& results);
+// display Bahere Hasab results
 void displayBahereHasabResults(const BahereHasabResults& results);

@@ -1,3 +1,8 @@
+// This file is for the data
+// it contains the data structures and the global variables
+
+
+
 // the definitions of the doxygen tags and their uses
 
 /**

@@ -5,12 +5,15 @@
 #include <ctime>
 #include <limits>
 
+
+// To clear the input buffer
+// it clears teh user input if he/she enters invalid input and loops back
 void clearInputBuffer() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-
+//
 void searchAndConvertRecord() {
     if (getRecordCount() == 0) {
         std::cout << "No records available to search." << std::endl;
@@ -45,6 +48,8 @@ int getIntInput(const std::string& prompt, int min, int max) {
     }
 }
 
+
+//gives a warm welcome message to the user when the user first opens the program
 void showWelcome() {
     std::cout << "\n";
     std::cout << "====================================================\n";
@@ -53,6 +58,8 @@ void showWelcome() {
     std::cout << std::endl;
 }
 
+
+// shows the options menu to the user
 void showMainMenu() {
     std::cout << "\n";
     std::cout << "[1] Today's Date      [6] Manage Records\n";
