@@ -1,6 +1,4 @@
 #include "ui.h"
-#include "data.h"
-#include "conversion.h"
 #include <iostream>
 #include <locale>
 
@@ -27,18 +25,14 @@ int main() {
             case 2: showBahereHasab(); break;
             case 3: showHelp(); break;
             case 4: convertSpecificDate(); break;
-            case 5: addRecord(); break;
-            case 6: showAllRecords(); break;
-            case 7: searchAndConvertRecord(); break;
-            case 8: updateRecord(); break;
-            case 9: deleteRecord(); break;
-            case 10:
+            case 5: manageReportFiles(); break;
+            case 6:
                 std::cout << "\nበሰላም ቆዩ! ስለተጠቀሙ እናመሰግናለን።" << std::endl;
                 break;
             default:
                 std::cout << "ያልተፈቀደ ምርጫ!" << std::endl;
         }
-    } while (choice != 10);
+    } while (choice != 6);
     
     return 0;
 }

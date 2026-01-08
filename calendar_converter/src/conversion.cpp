@@ -1,5 +1,7 @@
 #include "conversion.h" //header file for conversion of the calendars to each other
 #include "data.h"  //header file for 
+// why is it needed?
+// to use the functions in the header file
 #include <cmath>  //directive for mathematical operations
 #include <iostream>  //for input and outpt streams
 #include <iomanip>  //for formatting output
@@ -45,10 +47,15 @@ void jdnToEth(long jdn, int &days, int &months, int &years) {
     years += 1;
 }
 
-// Convert JDN to Islamic (Hijri) Date 
-// Uses the Tabular Islamic Calendar (30-year cycle)
+
+/*
+💥Disclaimer: It is simple implementation of islamic calendar. 
+Since Islamic calendar holidays are observational, there my be some uncertainties. We just tried to use lunar cycle which is more convenient.
+Convert JDN to Islamic (Hijri) Date 
+Uses the Tabular Islamic Calendar (30-year cycle)
+*/
 void jdnToIslamic(long jdn, int &days, int &months, int &years) {
-    const long ISLAMIC_EPOCH = 1948439;
+    const long ISLAMIC_EPOCH = 1948439; //
     long daysSinceEpoch = jdn - ISLAMIC_EPOCH;
     
     years = (30 * daysSinceEpoch + 10646) / 10631;
@@ -88,6 +95,7 @@ void jdnToGreg(long jdn, int &days, int &months, int &years) {
     years = (int)(100 * (n - 49) + i + l);
 }
 
+
 // Validate date inputs for specific calendar systems
 bool isValidDate(int days, int months, int years, CalendarType type) {
     if (years < 1 || years > 5000) return false;
@@ -117,6 +125,7 @@ bool isValidDate(int days, int months, int years, CalendarType type) {
     return false;
 }
 
+
 // Get day index offset for Bahere Hasab calculations
 int getTewsak(int dayIndex) {
     const int tewsak[] = {3, 2, 1, 0, 5, 4, 3};
@@ -143,6 +152,7 @@ void writeHolidaysReport(const std::string& content) {
                 << content << "\n\n";
     }
 }
+
 
 // Process and print moveable Ethiopian holidays
 void displayBahereHasabResults(const BahereHasabResults& res) {
@@ -175,6 +185,7 @@ void displayBahereHasabResults(const BahereHasabResults& res) {
     std::cout << "\n✓ Holidays saved to holidays_report.txt\n";
 }
 
+
 // Log conversion history to file
 void writeToReport(const std::string& content) {
     std::ofstream outfile("report.txt", std::ios::app);
@@ -186,6 +197,7 @@ void writeToReport(const std::string& content) {
     }
 }
 
+
 // Master function to convert and display dates across systems
 void convertAndDisplayDate(int d, int m, int y, CalendarType sourceType) {
     if (!isValidDate(d, m, y, sourceType)) {
@@ -195,23 +207,23 @@ void convertAndDisplayDate(int d, int m, int y, CalendarType sourceType) {
 
     long jdn = dateToJDN(d, m, y, sourceType == GREGORIAN);
     
-    int gd, gm, gy, ed, em, ey, id, im, iy; //the variables are for gregorian, ethiopian, and islamic dates
+    int gregorianDay, gregorianMonth, gregorianYear, ethiopianDay, ethiopianMonth, ethiopianYear, islamicDay, islamicMonth, islamicYear; //the variables are for gregorian, ethiopian, and islamic dates
     
-    jdnToGreg(jdn, gd, gm, gy);
-    jdnToEth(jdn, ed, em, ey);
-    jdnToIslamic(jdn, id, im, iy);
+    jdnToGreg(jdn, gregorianDay, gregorianMonth, gregorianYear);
+    jdnToEth(jdn, ethiopianDay, ethiopianMonth, ethiopianYear);
+    jdnToIslamic(jdn, islamicDay, islamicMonth, islamicYear);
 
     std::cout << "\n=== Date Conversion ===" << std::endl;
-    std::cout << "Gregorian (GC)     : " << gd << "/" << gm << "/" << gy << std::endl;
-    std::cout << "Ethiopian (EC)     : " << MONTHS_GEEZ[em-1] << " " << ed << ", " << ey << " ዓ.ም" << std::endl;
-    std::cout << "Islamic (Hijri)    : " << id << " " << MONTHS_HIJRI[im-1] << " " << iy << " AH" << std::endl;
+    std::cout << "Gregorian (GC)     : " << gregorianDay << "/" << gregorianMonth << "/" << gregorianYear << std::endl;
+    std::cout << "Ethiopian (EC)     : " << MONTHS_GEEZ[ethiopianMonth-1] << " " << ethiopianDay << ", " << ethiopianYear << " ዓ.ም" << std::endl;
+    std::cout << "Islamic (Hijri)    : " << islamicDay << " " << MONTHS_HIJRI[islamicMonth-1] << " " << islamicYear << " AH" << std::endl;
     std::cout << "Sidama Ayyaana     : " << SIDAMA_AYYAANA[jdn % 4] << std::endl;
 
     std::stringstream report;
     report << "=== Date Conversion ===\n"
-           << "Gregorian (GC)     : " << gd << "/" << gm << "/" << gy << "\n"
-           << "Ethiopian (EC)     : " << MONTHS_GEEZ[em-1] << " " << ed << ", " << ey << " ዓ.ም\n"
-           << "Islamic (Hijri)    : " << id << " " << MONTHS_HIJRI[im-1] << " " << iy << " AH\n"
+           << "Gregorian (GC)     : " << gregorianDay << "/" << gregorianMonth << "/" << gregorianYear << "\n"
+           << "Ethiopian (EC)     : " << MONTHS_GEEZ[ethiopianMonth-1] << " " << ethiopianDay << ", " << ethiopianYear << " ዓ.ም\n"
+           << "Islamic (Hijri)    : " << islamicDay << " " << MONTHS_HIJRI[islamicMonth-1] << " " << islamicYear << " AH\n"
            << "Sidama Ayyaana     : " << SIDAMA_AYYAANA[jdn % 4];
     
     writeToReport(report.str());

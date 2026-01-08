@@ -51,28 +51,22 @@ void showCurrentDate();
 void convertSpecificDate();
 
 /**
- * @brief Adds a new date record to the system
+ * @brief Gets and validates integer input from the user
  * 
- * Prompts the user for date information and stores it for future reference.
+ * @param prompt The message to display to the user
+ * @param min Minimum allowed value (inclusive)
+ * @param max Maximum allowed value (inclusive)
+ * @return int The validated user input
  */
-void addRecord();
+int getIntInput(const std::string& prompt, int min, int max);
 
 /**
- * @brief Searches for a previously saved record and displays its conversions
- */
-void searchAndConvertRecord();
-
-/**
- * @brief Updates an existing date record
+ * @brief Manages report files (view/clear history)
  * 
- * Allows modification of previously saved date information.
+ * Allows users to view the contents of report files and optionally clear them.
+ * Handles both conversion reports and holiday reports.
  */
-void updateRecord();
-
-/**
- * @brief Removes a date record from the system
- */
-void deleteRecord();
+void manageReportFiles();
 
 /**
  * @brief Displays the Bahere Hasab (ባሕረ ሐሳብ) calculation results
@@ -91,6 +85,8 @@ void showBahereHasab();
  * to ensure clean input handling.
  */
 void clearInputBuffer();
+
+
 
 /**
  * @brief Gets and validates integer input from the user

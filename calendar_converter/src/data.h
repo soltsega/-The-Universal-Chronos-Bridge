@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <vector>
 
 // Calendar type constants
 enum CalendarType {

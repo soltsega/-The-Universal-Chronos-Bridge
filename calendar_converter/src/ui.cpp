@@ -2,39 +2,16 @@
 #include "data.h"
 #include "conversion.h"
 #include <iostream>
-#include <ctime>
+#include <fstream>
 #include <limits>
-
+#include <locale>
+#include <cstdio>
 
 // To clear the input buffer
 // it clears teh user input if he/she enters invalid input and loops back
 void clearInputBuffer() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-//
-void searchAndConvertRecord() {
-    if (getRecordCount() == 0) {
-        std::cout << "No records available." << std::endl;
-        return;
-    }
-
-    showAllRecords();
-    std::cout << "\nEnter Record ID: ";
-    int searchId;
-    if (!(std::cin >> searchId)) {
-        clearInputBuffer();
-        return;
-    }
-    
-    CalendarRecord* record = findRecord(searchId); // Find by ID, not by index
-    if (!record) {
-        std::cout << "⚠️ ID " << searchId << " not found!" << std::endl;
-        return;
-    }
-
-    convertAndDisplayDate(record->day, record->month, record->year, record->calendarType);
 }
 
 int getIntInput(const std::string& prompt, int min, int max) {
@@ -65,11 +42,12 @@ void showWelcome() {
 // shows the options menu to the user
 void showMainMenu() {
     std::cout << "\n";
-    std::cout << "[1] Today's Date      [6] Manage Records\n";
-    std::cout << "[2] Bahere Hasab       [7] Search & Convert\n";
-    std::cout << "[3] Help Center       [8] Update Record\n";
-    std::cout << "[4] Date Converter    [9] Delete Record\n";
-    std::cout << "[5] Add Record       [10] Exit\n";
+    std::cout << "[1] Today's Date" << std::endl;
+    std::cout << "[2] Bahere Hasab" << std::endl;
+    std::cout << "[3] Help Center" << std::endl;
+    std::cout << "[4] Date Converter" << std::endl;
+    std::cout << "[5] Report/history Management" << std::endl;
+    std::cout << "[6] Exit\n";
     std::cout << "----------------------------------------------------\n";
     std::cout << "Choice: ";
     std::cout.flush();
@@ -142,12 +120,12 @@ void showCurrentDate() {
     std::time_t t = std::time(0);
     std::tm* now = std::localtime(&t);
     
-    int gd = now->tm_mday;
-    int gm = now->tm_mon + 1;
-    int gy = now->tm_year + 1900;
+    int gregorianDays = now->tm_mday;
+    int gregorianMonths = now->tm_mon + 1;
+    int gregorianYears = now->tm_year + 1900;
     
     std::cout << "\n=== Current Date ===" << std::endl;
-    convertAndDisplayDate(gd, gm, gy, GREGORIAN);
+    convertAndDisplayDate(gregorianDays, gregorianMonths, gregorianYears, GREGORIAN);
 }
 
 void convertSpecificDate() {
@@ -162,97 +140,75 @@ void convertSpecificDate() {
                              (type == ETHIOPIAN) ? "Ethiopian" : "Islamic";
     
     std::cout << "\nEnter " << calendarName << " date (DD MM YYYY): ";
-    int d, m, y;
-    std::cin >> d >> m >> y;
+    int days, month, year;
+    std::cin >> days >> month >> year;
     clearInputBuffer();
     
-    convertAndDisplayDate(d, m, y, type);
+    convertAndDisplayDate(days, month, year, type);
 }
 
-void addRecord() {
-    std::cout << "\n=== Add New Record ===" << std::endl;
-    std::cout << "Select calendar type:\n";
-    std::cout << "1. Gregorian\n2. Ethiopian\n3. Islamic\n";
-    
-    int choice = getIntInput("Enter choice (1-3): ", 1, 3);
-    CalendarType type = static_cast<CalendarType>(choice);
-    
-    std::string calendarName = (type == GREGORIAN) ? "Gregorian" : 
-                             (type == ETHIOPIAN) ? "Ethiopian" : "Islamic";
-    
-    std::cout << "\nEnter " << calendarName << " date (DD MM YYYY): ";
-    int d, m, y;
-    std::cin >> d >> m >> y;
-    clearInputBuffer();
-    
-    if (!isValidDate(d, m, y, type)) {
-        std::cout << "⚠️ Invalid date for " << calendarName << " calendar!\n";
-        return;
-    }
-    
-    CalendarRecord record{0, d, m, y, type};
-    addRecord(record);
-    std::cout << "✅ Record added successfully! (ID: " << (getRecordCount()) << ")\n";
-}
-
-
-void updateRecord() {
-    if (getRecordCount() == 0) {
-        std::cout << "No records available to update." << std::endl;
-        return;
-    }
-
-    showAllRecords();
-    int id = getIntInput("\nEnter record ID to update: ", 1, getRecordCount());
-    
-    CalendarRecord* record = findRecord(id);
-    if (!record) {
-        std::cout << "Record not found!" << std::endl;
-        return;
-    }
-
-    std::cout << "\n=== Updating Record ID: " << id << " ===" << std::endl;
-    std::cout << "Select new calendar type:\n";
-    std::cout << "1. Gregorian\n2. Ethiopian\n3. Islamic\n";
-    
-    int choice = getIntInput("Enter choice (1-3): ", 1, 3);
-    CalendarType newType = static_cast<CalendarType>(choice);
-    
-    std::string calendarName = (newType == GREGORIAN) ? "Gregorian" : 
-                             (newType == ETHIOPIAN) ? "Ethiopian" : "Islamic";
-    
-    std::cout << "\nEnter new " << calendarName << " date (DD MM YYYY): ";
-    int d, m, y;
-    std::cin >> d >> m >> y;
-    clearInputBuffer();
-    
-    if (!isValidDate(d, m, y, newType)) {
-        std::cout << "⚠️ Invalid date for " << calendarName << " calendar!\n";
-        return;
-    }
-    
-    // Update the record
-    record->day = d;
-    record->month = m;
-    record->year = y;
-    record->calendarType = newType;
-    
-    std::cout << "✅ Record updated successfully!\n";
-}
-
-void deleteRecord() {
-    if (getRecordCount() == 0) {
-        std::cout << "No records available to delete." << std::endl;
-        return;
-    }
-
-    showAllRecords();
-    int id = getIntInput("\nEnter record ID to delete: ", 1, getRecordCount());
-    
-    if (::deleteRecord(id)) {
-        std::cout << "✅ Record deleted successfully!\n";
-    } else {
-        std::cout << "⚠️ Failed to delete record. ID not found.\n";
+void manageReportFiles() {
+    while (true) {
+        std::cout << "\n=== Report File Management ===" << std::endl;
+        std::cout << "[1] View Conversion Report (report.txt)" << std::endl;
+        std::cout << "[2] View Holidays Report (holidays_report.txt)" << std::endl;
+        std::cout << "[3] Clear Conversion History" << std::endl;
+        std::cout << "[4] Clear Holidays History" << std::endl;
+        std::cout << "[5] Back to Main Menu" << std::endl;
+        std::cout << "Choice: ";
+        
+        int choice;
+        std::cin >> choice;
+        clearInputBuffer();
+        
+        if (choice == 5) break;
+        
+        std::string filename;
+        std::string fileDescription;
+        
+        switch (choice) {
+            case 1:
+                filename = "report.txt";
+                fileDescription = "Conversion Report";
+                break;
+            case 2:
+                filename = "holidays_report.txt";
+                fileDescription = "Holidays Report";
+                break;
+            case 3:
+                if (std::remove("report.txt") == 0) {
+                    std::cout << "✓ Conversion history cleared successfully!" << std::endl;
+                } else {
+                    std::cout << "⚠️ No conversion history found or error occurred." << std::endl;
+                }
+                continue;
+            case 4:
+                if (std::remove("holidays_report.txt") == 0) {
+                    std::cout << "✓ Holidays history cleared successfully!" << std::endl;
+                } else {
+                    std::cout << "⚠️ No holidays history found or error occurred." << std::endl;
+                }
+                continue;
+            default:
+                std::cout << "⚠️ Invalid choice. Please try again." << std::endl;
+                continue;
+        }
+        
+        // For viewing files
+        std::ifstream file(filename);
+        if (file.is_open()) {
+            std::cout << "\n=== " << fileDescription << " ===" << std::endl;
+            std::string line;
+            while (std::getline(file, line)) {
+                std::cout << line << std::endl;
+            }
+            file.close();
+            
+            std::cout << "\nPress Enter to continue...";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else {
+            std::cout << "⚠️ No " << fileDescription << " found or file is empty." << std::endl;
+        }
     }
 }
 
